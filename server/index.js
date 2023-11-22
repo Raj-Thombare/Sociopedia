@@ -10,7 +10,13 @@ import path from "path";
 import { fileURLToPath } from "url";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/auth.js";
+import postRoutes from "./routes/auth.js";
 import { signup } from "./controllers/auth.js";
+import { createPost } from "./controllers/posts.js";
+import { verifyToken } from "./middleware/is-auth.js";
+import Post from "./models/Post.js";
+import User from "./models/User.js";
+import { users, posts } from "./data/index.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -39,9 +45,11 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.post("/auth/signup", upload.single("picture"), signup);
+app.post("/posts", verifyToken, upload.single("picture"), createPost);
 
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
+app.use("/posts", postRoutes);
 
 const PORT = process.env.PORT || 6001;
 const start = async () => {
@@ -49,6 +57,9 @@ const start = async () => {
     await mongoose.connect(process.env.MONGODB_URL);
     app.listen(PORT, () => {
       console.log(`Server started on port ${PORT}`);
+
+      // User.insertMany(users);
+      // Post.insertMany(posts);
     });
   } catch (error) {
     console.log(error);
