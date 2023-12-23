@@ -14,6 +14,7 @@ export const signup = async (req, res) => {
       location,
       occupation,
     } = req.body;
+    console.log(picturePath);
 
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
@@ -46,7 +47,7 @@ export const login = async (req, res) => {
     const user = await User.findOne({
       email: email,
     });
-    
+
     if (!user)
       return res.status(400).json({
         msg: "User does not exist.",

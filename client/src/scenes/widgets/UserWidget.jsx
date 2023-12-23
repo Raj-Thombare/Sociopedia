@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
 const UserWidget = ({ userId, picturePath }) => {
-  const { user, setUser } = useState(null);
+  const [user, setUser] = useState(null);
   const { palette } = useTheme();
   const navigate = useNavigate();
   const token = useSelector((state) => state.token);
@@ -31,7 +31,6 @@ const UserWidget = ({ userId, picturePath }) => {
     });
 
     const data = await response.json();
-    console.log("data ", data);
     setUser(data);
   };
 
