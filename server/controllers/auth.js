@@ -14,7 +14,6 @@ export const signup = async (req, res) => {
       location,
       occupation,
     } = req.body;
-    console.log(picturePath);
 
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);
