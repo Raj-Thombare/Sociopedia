@@ -63,10 +63,13 @@ const Form = () => {
 
     formData.append("picturePath", values.picture.name);
 
-    const savedUserResponse = await fetch("http://localhost:3000/auth/signup", {
-      method: "POST",
-      body: formData,
-    });
+    const savedUserResponse = await fetch(
+      "http://localhost:3000/auth/register",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
 
     const savedUser = await savedUserResponse.json();
 
@@ -262,7 +265,7 @@ const Form = () => {
               }}
             >
               {isLogin
-                ? "Don't have an account? Sign Up here."
+                ? "Don't have an account? Register here."
                 : "Already have an account? Login here."}
             </Typography>
           </Box>
