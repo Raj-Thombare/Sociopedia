@@ -24,14 +24,14 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
 
   const patchFriend = async () => {
     const response = await fetch(
-      `https://sociopedia-zc8a.onrender.com/users/${_id}/${friendId}`,
+      `https://sociopedia-wibz.onrender.com/users/${_id}/${friendId}`,
       {
         method: "PATCH",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-      }
+      },
     );
     const data = await response.json();
     dispatch(setFriends({ friends: data }));

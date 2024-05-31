@@ -10,7 +10,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   const token = useSelector((state) => state.token);
 
   const getPosts = async () => {
-    const response = await fetch("https://sociopedia-zc8a.onrender.com/posts", {
+    const response = await fetch("https://sociopedia-wibz.onrender.com/posts", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -22,13 +22,13 @@ const PostsWidget = ({ userId, isProfile = false }) => {
 
   const getUserPosts = async () => {
     const response = await fetch(
-      `https://sociopedia-zc8a.onrender.com/posts/${userId}/posts`,
+      `https://sociopedia-wibz.onrender.com/posts/${userId}/posts`,
       {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }
+      },
     );
     const data = await response.json();
     dispatch(setPosts({ posts: data }));

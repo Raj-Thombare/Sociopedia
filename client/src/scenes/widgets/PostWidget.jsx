@@ -37,7 +37,7 @@ const PostWidget = ({
 
   const patchLike = async () => {
     const response = await fetch(
-      `https://sociopedia-zc8a.onrender.com/posts/${postId}/like`,
+      `https://sociopedia-wibz.onrender.com/posts/${postId}/like`,
       {
         method: "PATCH",
         headers: {
@@ -45,14 +45,14 @@ const PostWidget = ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ userId: loggedInUserId }),
-      }
+      },
     );
     const updatedPost = await response.json();
     dispatch(setPost({ post: updatedPost }));
   };
 
   return (
-    <WidgetWrapper m="2rem 0">
+    <WidgetWrapper m='2rem 0'>
       <Friend
         friendId={postUserId}
         name={name}
@@ -64,17 +64,17 @@ const PostWidget = ({
       </Typography>
       {picturePath && (
         <img
-          width="100%"
-          height="auto"
-          alt="post"
+          width='100%'
+          height='auto'
+          alt='post'
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`https://sociopedia-zc8a.onrender.com/assets/${picturePath}`}
+          src={`https://sociopedia-wibz.onrender.com/assets/${picturePath}`}
         />
       )}
-      <FlexBetween mt="0.25rem">
-        <FlexBetween gap="1rem">
+      <FlexBetween mt='0.25rem'>
+        <FlexBetween gap='1rem'>
           {/* likes */}
-          <FlexBetween gap="0.3rem">
+          <FlexBetween gap='0.3rem'>
             <IconButton onClick={patchLike}>
               {isLiked ? (
                 <FavoriteOutlined sx={{ color: primary }} />
@@ -85,7 +85,7 @@ const PostWidget = ({
             <Typography>{likeCount}</Typography>
           </FlexBetween>
           {/* comments */}
-          <FlexBetween gap="0.3rem">
+          <FlexBetween gap='0.3rem'>
             <IconButton onClick={() => setIsComments(!isComments)}>
               <ChatBubbleOutlineOutlined />
             </IconButton>
@@ -98,7 +98,7 @@ const PostWidget = ({
         </IconButton>
       </FlexBetween>
       {isComments && (
-        <Box mt="0.5rem">
+        <Box mt='0.5rem'>
           {comments.map((comment, i) => (
             <Box key={`${name} - ${i}`}>
               <Divider />

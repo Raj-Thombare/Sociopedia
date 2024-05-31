@@ -8,8 +8,8 @@ const UserImage = ({ image, size = "60px" }) => {
         style={{ objectFit: "cover", borderRadius: "50%" }}
         width={size}
         height={size}
-        alt="user"
-        src={`https://sociopedia-zc8a.onrender.com/assets/${image}`}
+        alt='user'
+        src={`https://sociopedia-wibz.onrender.com/assets/${image}`}
       />
     </Box>
   );

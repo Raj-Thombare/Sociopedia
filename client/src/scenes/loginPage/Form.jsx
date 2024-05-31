@@ -64,11 +64,11 @@ const Form = () => {
     formData.append("picturePath", values.picture.name);
 
     const savedUserResponse = await fetch(
-      "https://sociopedia-zc8a.onrender.com/auth/register",
+      "https://sociopedia-wibz.onrender.com/auth/register",
       {
         method: "POST",
         body: formData,
-      }
+      },
     );
 
     const savedUser = await savedUserResponse.json();
@@ -82,12 +82,12 @@ const Form = () => {
 
   const login = async (values, onSubmitProps) => {
     const loggedInResponse = await fetch(
-      "https://sociopedia-zc8a.onrender.com/auth/login",
+      "https://sociopedia-wibz.onrender.com/auth/login",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
-      }
+      },
     );
 
     const loggedIn = await loggedInResponse.json();
@@ -97,10 +97,10 @@ const Form = () => {
         setLogin({
           user: loggedIn.user,
           token: loggedIn.token,
-        })
+        }),
       );
     }
-    navigate("/home");
+    navigate("/");
   };
 
   const handleFormSubmit = async (values, onSubmitProps) => {

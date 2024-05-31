@@ -47,7 +47,7 @@ const CreatePost = ({ picturePath }) => {
       formData.append("picturePath", image.name);
     }
 
-    const response = await fetch(`https://sociopedia-zc8a.onrender.com/posts`, {
+    const response = await fetch(`https://sociopedia-wibz.onrender.com/posts`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: formData,
