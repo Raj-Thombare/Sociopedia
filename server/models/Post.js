@@ -22,12 +22,27 @@ const PostSchema = new mongoose.Schema(
       type: Map,
       of: Boolean,
     },
-    comments: {
-      type: Array,
-      default: [],
-    },
+    comments: [
+      {
+        userId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+          required: true,
+        },
+        text: {
+          type: String,
+          required: true,
+        },
+        userProfilePic: {
+          type: String,
+        },
+        username: {
+          type: String,
+        },
+      },
+    ],
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Post = mongoose.model("Post", PostSchema);

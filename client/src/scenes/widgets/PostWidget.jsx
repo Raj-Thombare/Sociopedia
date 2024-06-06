@@ -5,7 +5,15 @@ import {
   FavoriteOutlined,
   ShareOutlined,
 } from "@mui/icons-material";
-import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Divider,
+  IconButton,
+  Typography,
+  useTheme,
+  TextField,
+  Button,
+} from "@mui/material";
 import FlexBetween from "../../components/FlexBetween";
 import Friend from "../../components/Friend";
 import WidgetWrapper from "../../components/WidgetWrapper";
@@ -25,6 +33,7 @@ const PostWidget = ({
   comments,
 }) => {
   const [isComments, setIsComments] = useState(false);
+  const [reply, setReply] = useState("");
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const loggedInUserId = useSelector((state) => state.user._id);
@@ -49,6 +58,23 @@ const PostWidget = ({
     );
     const updatedPost = await response.json();
     dispatch(setPost({ post: updatedPost }));
+  };
+
+  const replyToPost = async () => {
+    const response = await fetch(
+      `https://sociopedia-wibz.onrender.com/posts/${postId}/reply`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text: reply }),
+      },
+    );
+    const comment = await response.json();
+    dispatch(setPost({ post: comment }));
+    setReply("");
   };
 
   return (
@@ -97,14 +123,43 @@ const PostWidget = ({
           <ShareOutlined />
         </IconButton>
       </FlexBetween>
+
       {isComments && (
         <Box mt='0.5rem'>
+          <Typography variant='h5' component='h2' sx={{ mb: ".5rem" }}>
+            {comments.length > 0 ? "Comments" : "No Comments"}
+          </Typography>
+
+          <FlexBetween sx={{ my: "0.7rem" }}>
+            <TextField
+              id='outlined'
+              label={`Add a comment for ${name}..`}
+              sx={{
+                width: 400,
+                maxWidth: "100%",
+              }}
+              required
+              value={reply}
+              onChange={(e) => setReply(e.target.value)}
+            />
+            <Button
+              onClick={replyToPost}
+              variant='contained'
+              size='large'
+              sx={{ color: "white" }}
+            >
+              Post
+            </Button>
+          </FlexBetween>
+
           {comments.map((comment, i) => (
             <Box key={`${name} - ${i}`}>
               <Divider />
-              <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
-                {comment}
-              </Typography>
+              <Box>
+                <Typography sx={{ color: main, m: "0.5rem 0", pl: "1rem" }}>
+                  {comment.text}
+                </Typography>
+              </Box>
             </Box>
           ))}
         </Box>

@@ -77,3 +77,34 @@ export const likePost = async (req, res) => {
     });
   }
 };
+
+export const replyToPost = async (req, res) => {
+  try {
+    const { text } = req.body;
+    const { id } = req.params;
+
+    if (!text) {
+      return res.status(400).json({ error: "Text field is required" });
+    }
+
+    const post = await Post.findById(id);
+    const userId = post.userId;
+    const userProfilePic = post.userPicturePath;
+    const username = `${post.firstName} + ${post.lastName}`;
+
+    if (!post) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+
+    const reply = { userId, text, userProfilePic, username };
+
+    post.comments.push(reply);
+    await post.save();
+
+    res.status(200).json(reply);
+  } catch (err) {
+    res.status(404).json({
+      message: err.message,
+    });
+  }
+};
